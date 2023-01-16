@@ -77,7 +77,7 @@ app.use("/api/user", isAuthenticatedUser, userRouter);
 // app.use("/api/appointment", isAuthenticatedUser, appointmentRouter);
 app.use("/api/bank", bankRouter);
 app.use("/api/contact", isAuthenticatedUser, contactRouter);
-app.use("/api", isAuthenticatedUser, miscRouter);
+app.use("/api/misc", isAuthenticatedUser, miscRouter);
 
 //listening to the server
 

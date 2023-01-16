@@ -10,7 +10,6 @@ const {
 } = require("../utils");
 exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   const token = req.headers["auth-token"];
-  console.log(req.headers);
   if (!token) {
     return next(new ErrorHandler("please login to access this resource", 401));
   }
@@ -23,20 +22,6 @@ exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   req.user = authenticatedUser;
   next();
 });
-
-// exports.isNotAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
-//   const { token } = req.cookies;
-
-//   if (token) {
-//     const authenticatedUser = await getAuthenticatedUser(token);
-//     if (authenticatedUser) {
-//       req.user = authenticatedUser;
-//       res.redirect("/");
-//     }
-//   }
-
-//   next();
-// });
 
 exports.authorizeRoles = (authorizedRoles) => {
   return (req, res, next) => {

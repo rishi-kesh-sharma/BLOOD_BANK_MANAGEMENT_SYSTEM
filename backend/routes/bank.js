@@ -18,18 +18,19 @@ const {
 Router.route("/all").get(getAllBanks);
 
 // for admin
-Router.route("/admin/register").post(
-  isAuthenticatedUser,
-  authorizeRoles("superadmin admin"),
-  registerBank
-);
-Router.route("/admin/:userId").get(isAuthenticatedUser, getSingleBank);
-Router.route("/admin/:userId").put(
+Router.route("/admin/register").post(registerBank);
+// Router.route("/admin/register").post(
+//   isAuthenticatedUser,
+//   authorizeRoles("superadmin admin"),
+//   registerBank
+// );
+Router.route("/admin/:bankId").get(isAuthenticatedUser, getSingleBank);
+Router.route("/admin/:bankId").put(
   isAuthenticatedUser,
   authorizeRoles("superadmin"),
   updateBank
 );
-Router.route("/admin/:userId").delete(
+Router.route("/admin/:bankId").delete(
   isAuthenticatedUser,
   authorizeRoles("superadmin"),
   deleteBank

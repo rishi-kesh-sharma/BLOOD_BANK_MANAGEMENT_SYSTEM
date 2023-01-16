@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 // CREATE SCHEMA FOR BANK
 const BankSchema = mongoose.Schema(
   {
-    Bankname: {
+    bankname: {
       type: String,
       required: true,
     },
@@ -41,20 +41,16 @@ const BankSchema = mongoose.Schema(
       required: true,
     },
     category: {
-      type: [String],
-      enum: ["national,regional,district"],
-      default: ["district"],
+      type: String,
+      enum: ["national", "regional", "district"],
+      default: "district",
       required: true,
     },
     socialMediaHandles: {
-      type: [
-        {
-          facebook: String,
-          instagram: String,
-          twitter: String,
-          linkedIn: String,
-        },
-      ],
+      facebook: String,
+      instagram: String,
+      twitter: String,
+      linkedIn: String,
     },
     website: {
       type: String,

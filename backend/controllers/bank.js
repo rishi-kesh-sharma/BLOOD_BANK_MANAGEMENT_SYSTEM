@@ -16,38 +16,6 @@ const { Bank } = require("../models");
 
 // REGISTER USER
 exports.registerBank = catchAsyncErrors(async (req, res, next) => {
-  // const {
-  //   password,
-  //   confirmPassword,
-  //   username,
-  //   organizationName,
-  //   email,
-  //   description,
-  //   profilePic,
-  // } = req.body;
-
-  // if (
-  //   !password ||
-  //   !confirmPassword ||
-  //   !username ||
-  P; //   !organizationName ||
-  //   !email
-  // ) {
-  //   sendResponse(res, 400, {
-  //     success: false,
-  //     message: "fields not filled properly",
-  //   });
-  //   return next(new ErrorHandler("password fields empty", 400));
-  // }
-
-  // if (password !== confirmPassword) {
-  //   sendResponse(res, 400, {
-  //     success: false,
-  //     message: "passwords not matching",
-  //   });
-  //   return next(new ErrorHandler("passwords not matching", 401));
-  // }
-
   const bank = new Bank(req.body);
 
   const savedBank = await bank.save();

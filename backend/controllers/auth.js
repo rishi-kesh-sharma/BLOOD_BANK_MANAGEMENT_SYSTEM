@@ -104,6 +104,7 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
 exports.logout = catchAsyncErrors(async (req, res, next) => {
   const token = req.headers["auth-token"];
   const user = User.findOne({ authTokens: { $all: [token] } });
+  console.log(user);
   user.authTokens = [];
   await user.save();
   sendResponse(res, 200, {
