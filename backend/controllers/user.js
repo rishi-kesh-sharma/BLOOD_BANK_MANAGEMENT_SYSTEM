@@ -6,7 +6,7 @@ const {
 const {
   ApiFeatures,
   destroyToken,
-  errorHandler,
+  ErrorHandler,
   getAuthenticatedUser,
   sendEmail,
   sendResponse,

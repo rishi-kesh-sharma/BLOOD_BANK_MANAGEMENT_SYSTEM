@@ -75,8 +75,9 @@ require("./database/conn");
 app.use("/api/auth", authRouter);
 app.use("/api/user", isAuthenticatedUser, userRouter);
 // app.use("/api/appointment", isAuthenticatedUser, appointmentRouter);
+app.use("/api/bank", bankRouter);
 app.use("/api/contact", isAuthenticatedUser, contactRouter);
-app.use("/api", miscRouter);
+app.use("/api", isAuthenticatedUser, miscRouter);
 
 //listening to the server
 

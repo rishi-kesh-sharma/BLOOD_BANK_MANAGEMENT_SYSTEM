@@ -5,11 +5,11 @@ const {
 const {
   ApiFeatures,
   destroyToken,
-  errorHandler,
   getAuthenticatedUser,
   sendEmail,
   sendResponse,
   sendToken,
+  ErrorHandler,
 } = require("../utils");
 
 const { Bank } = require("../models");
@@ -30,7 +30,7 @@ exports.registerBank = catchAsyncErrors(async (req, res, next) => {
   //   !password ||
   //   !confirmPassword ||
   //   !username ||
-  //   !organizationName ||
+  P; //   !organizationName ||
   //   !email
   // ) {
   //   sendResponse(res, 400, {
@@ -103,7 +103,7 @@ exports.deleteBank = catchAsyncErrors(async (req, res, next) => {
 
 exports.getAllBanks = catchAsyncErrors(async (req, res, next) => {
   const resultPerPage = 11;
-  let apiFeature1 = new ApiFeatures(bank.find(), req.query).search();
+  let apiFeature1 = new ApiFeatures(Bank.find(), req.query).search();
   let allBanks = await apiFeature1.query;
   const totalbanks = allBanks.length;
 

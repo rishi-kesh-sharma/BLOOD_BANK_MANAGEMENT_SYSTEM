@@ -10,6 +10,7 @@ const {
   sendEmail,
   sendResponse,
   sendToken,
+  ErrorHandler,
 } = require("../utils");
 
 const { User } = require("../models");
@@ -94,17 +95,40 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     });
     return next(new ErrorHandler("invalid email or password", 401));
   }
-
   res.user = user;
+
   sendToken(res);
 });
 
 // LOGOUT USER
 exports.logout = catchAsyncErrors(async (req, res, next) => {
-  //   sendResponse(res, 200, {
-  //     success: true,
-  //     message: "user logged out !!!",
-  //     action: "logout",
-  //   });
-  destroyToken(res);
+  const token = req.headers["auth-token"];
+  const user = User.findOne({ authTokens: { $all: [token] } });
+  user.authTokens = [];
+  await user.save();
+  sendResponse(res, 200, {
+    success: true,
+    message: "user logged out !!!",
+    action: "logout",
+  });
+  // destroyToken(res);
+});
+
+exports.checkTokenValidity = catchAsyncErrors(async (req, res, next) => {
+  const token = req.headers["auth-token"];
+  if (!token) return sendResponse(res, 400, { success: false });
+  const authenticatedUser = await getAuthenticatedUser(token);
+  if (!authenticatedUser) {
+    return sendResponse(res, 400, { success: false });
+    // if (!user) return sendResponse(res, 400, { success: false });
+  }
+  const user = await User.findOne({
+    authTokens: { $all: [`${token}`] },
+  }).select({ password: 0 });
+
+  if (!user) {
+    return sendResponse(res, 400, { success: false });
+  }
+
+  return sendResponse(res, 200, { success: true, user });
 });

@@ -15,7 +15,7 @@ const {
 } = require("../middlewares");
 
 // for all users
-Router.route("/all").get(isAuthenticatedUser, getAllBanks);
+Router.route("/all").get(getAllBanks);
 
 // for admin
 Router.route("/admin/register").post(

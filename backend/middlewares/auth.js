@@ -1,22 +1,17 @@
-const {
-  // catchAsyncErrorsMiddleware: catchAsyncErrors,
-  authMiddleWare,
-  errorMiddlware,
-} = require("../middlewares");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const {
   ApiFeatures,
   destroyToken,
-  errorHandler,
+  ErrorHandler,
   getAuthenticatedUser,
   sendEmail,
   sendResponse,
   sendToken,
 } = require("../utils");
 exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
-  const { token } = req.cookies;
+  const token = req.headers["auth-token"];
+  console.log(req.headers);
   if (!token) {
-    res.redirect("/login");
     return next(new ErrorHandler("please login to access this resource", 401));
   }
   const authenticatedUser = await getAuthenticatedUser(token);

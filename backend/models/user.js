@@ -37,6 +37,7 @@ const UserSchema = mongoose.Schema(
       default: ["guest"],
       required: true,
     },
+    authTokens: [String],
   },
   { timestamps: true }
 );
